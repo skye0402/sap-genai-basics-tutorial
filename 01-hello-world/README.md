@@ -70,20 +70,20 @@ Prompt (empty to exit):
 - **Type a question**, press Enter → the model reply is printed.
 - **Press Enter on an empty line** to exit.
 
-## How to use in the workshop
+## Suggested way to work through this step
 
-A suggested flow for this step:
+You can use the following flow when you work with this example:
 
-- **Step 1**: Everyone clones the repo and configures SAP AI Core access.
-- **Step 2**: In `01-hello-world`, they run `uv sync` and `uv run main.py` to confirm everything works.
-- **Step 3**: Let them
+- **Step 1**: Clone the repo and configure your SAP AI Core access.
+- **Step 2**: In `01-hello-world`, run `uv sync` and `uv run main.py` to confirm everything works.
+- **Step 3**: Experiment a bit:
   - Change the **system prompt** in code.
   - Change `GENAI_MODEL` to try different models.
-- **Step 4**: Brief discussion of prompts, roles (system vs user), and model choice.
+- **Step 4**: Reflect on prompts, roles (system vs user), and model choice.
 
 ## Exercise: Build your own CLI chat (`01a-cli-chat`)
 
-After everyone understands `01-hello-world`, you can give a small coding exercise before showing the full solution in `02-cli-chat`.
+After you understand `01-hello-world`, try this small coding exercise before looking at the full solution in `02-cli-chat`.
 
 - **Step 1 – Copy the project**  
   Create a new folder next to this one:
@@ -93,7 +93,7 @@ After everyone understands `01-hello-world`, you can give a small coding exercis
   ```
 
 - **Step 2 – Turn single-call into chat**  
-  In `01a-cli-chat/main.py`, ask participants to:
+  In `01a-cli-chat/main.py`, you will:
 
   - Keep loading config from the shared `.env` as in `01-hello-world`.
   - Introduce a simple **message history** (e.g. a Python list).
