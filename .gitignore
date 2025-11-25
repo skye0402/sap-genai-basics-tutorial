@@ -1,0 +1,14 @@
+# Python / uv / env
+__pycache__/
+*.pyc
+.venv/
+.uv/
+
+# Local environment files (never commit real credentials)
+.env
+.env.*
+!.env.example
+
+# IDE / editor
+.vscode/
+.idea/
