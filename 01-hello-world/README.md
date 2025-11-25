@@ -80,3 +80,31 @@ A suggested flow for this step:
   - Change the **system prompt** in code.
   - Change `GENAI_MODEL` to try different models.
 - **Step 4**: Brief discussion of prompts, roles (system vs user), and model choice.
+
+## Exercise: Build your own CLI chat (`01a-cli-chat`)
+
+After everyone understands `01-hello-world`, you can give a small coding exercise before showing the full solution in `02-cli-chat`.
+
+- **Step 1 – Copy the project**  
+  Create a new folder next to this one:
+
+  ```bash
+  cp -r 01-hello-world 01a-cli-chat
+  ```
+
+- **Step 2 – Turn single-call into chat**  
+  In `01a-cli-chat/main.py`, ask participants to:
+
+  - Keep loading config from the shared `.env` as in `01-hello-world`.
+  - Introduce a simple **message history** (e.g. a Python list).
+  - Add the **system prompt** as the first entry in that history.
+  - On each user input:
+    - Append the user message to the history.
+    - Send the **full history** to the model.
+    - Append the model reply back into the history.
+
+- **Optional Step 3 – Streaming**  
+  As a stretch goal, let them try to stream partial outputs to the terminal instead of printing the full reply at once.
+
+- **Step 4 – Compare with the solution**  
+  Once they are done (or if they get stuck), they can look at the **reference implementation** in the `02-cli-chat` folder, which shows a minimal streaming chat using LangChain and the same SAP Generative AI Hub setup.

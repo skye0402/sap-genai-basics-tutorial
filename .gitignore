@@ -3,6 +3,7 @@ __pycache__/
 *.pyc
 .venv/
 .uv/
+uv.lock
 
 # Local environment files (never commit real credentials)
 .env
