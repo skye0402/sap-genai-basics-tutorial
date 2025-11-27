@@ -223,10 +223,6 @@ def main() -> None:
     print("Software License Procurement Agent (exercise skeleton)")
     print("Type an empty line or Ctrl+C to exit.\n")
 
-    # Keep full conversation history across turns so the agent can
-    # remember previous questions and answers.
-    conversation: list[AnyMessage] = []
-
     while True:
         try:
             user_text = input("You: ").strip()
@@ -238,18 +234,14 @@ def main() -> None:
             print("Goodbye.")
             break
 
-        # Add the new user message to the ongoing conversation
-        conversation.append(HumanMessage(content=user_text))
-
-        # Invoke the agent with the full history
+        # For the exercise, we keep each turn independent to simplify
+        # reasoning and avoid tool_call validation errors while
+        # should_continue is still a TODO.
         state = agent.invoke({
-            "messages": conversation,
+            "messages": [HumanMessage(content=user_text)],
             "llm_calls": 0,
         })
         msgs = state["messages"]
-
-        # Update conversation with all messages produced in this turn
-        conversation = msgs
 
         print_agent_thought_process(msgs)
 

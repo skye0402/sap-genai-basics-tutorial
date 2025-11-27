@@ -36,6 +36,11 @@ You will complete two main parts:
 2. **EXERCISE 2 – Implement routing logic**
    - Fix `should_continue` so the agent knows when to call tools and when to stop.
 
+Optionally, you can also try a third exercise:
+
+3. **EXERCISE 3 – Add a state-changing tool (deduct_budget)**
+   - Implement a new tool that deducts a license cost from the team's budget.
+
 The rest of the code (state definition, LangGraph wiring, CLI loop, audit log)
 is already implemented for you.
 
@@ -89,6 +94,44 @@ Right now it always returns `END`, so the agent never calls tools.
 - **Optional:** add a safety stop, e.g. if `state["llm_calls"] > 3` → `END`.
 
 You do **not** need to modify the graph wiring code that uses `should_continue`.
+
+---
+
+## (Optional) EXERCISE 3 – Add a state-changing tool
+
+In the complete demo (`05-agent-graph-complete`), there is an extra tool
+called `deduct_budget` that updates an in-memory `TEAM_BUDGETS` dictionary
+whenever a license is approved.
+
+You can try something similar here:
+
+1. Define a global dictionary at the top of `license_agent_exercise.py`, e.g.:
+
+   ```python
+   TEAM_BUDGETS = {
+       "it": 10000.0,
+       "marketing": 100.0,
+       "finance": 5000.0,
+   }
+   ```
+
+2. Create a new tool:
+
+   ```python
+   @tool
+   def deduct_budget(team_name: str, amount_usd: float) -> str:
+       """Deduct an amount from the team's budget (demo only)."""
+       # TODO: look up TEAM_BUDGETS[team_name], subtract, store and return a message
+   ```
+
+3. Add this tool to the `tools` list and `tools_by_name` mapping.
+
+4. Update the system prompt in `llm_call` to instruct the agent:
+   - When it approves a request, it should call `deduct_budget` with a
+     reasonable cost estimate (for example, ~3000 USD for SAP, ~600 USD for Adobe).
+
+5. Run the agent again and make multiple approved requests for the same team.
+   - Watch how the budget decreases over time in the AGENT AUDIT LOG.
 
 ---
 

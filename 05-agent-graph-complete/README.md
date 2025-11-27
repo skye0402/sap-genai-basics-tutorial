@@ -5,8 +5,9 @@ The agent acts as a **Software License Procurement Assistant** that:
 
 - Checks software license availability (IT perspective)
 - Checks team budget (Finance perspective)
+- Deducts the estimated license cost from the team's budget when a request is approved
 - Decides whether a license request can be approved
-- Prints an audit log of its reasoning and tool usage
+- Prints an audit log of its reasoning, tool usage, and budget changes
 
 This is the **reference solution** for the workshop. In the actual exercise
 (05-agent-graph), participants will start from a skeleton and implement the
@@ -42,9 +43,10 @@ Example prompts to try:
 
 Watch the **AGENT AUDIT LOG** in the console to see:
 
-- When the agent decides to call tools (`check_software_license`, `check_team_budget`)
+- When the agent decides to call tools (`check_software_license`, `check_team_budget`, `deduct_budget`)
 - What the tools return
 - How the agent explains its final decision
+- How the Finance / IT / Marketing team budgets change over time after approvals
 
 This example will later be mirrored by a skeleton version in `05-agent-graph/`,
 where participants will:

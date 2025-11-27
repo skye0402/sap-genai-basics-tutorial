@@ -67,16 +67,44 @@ def check_team_budget(team_name: str) -> str:
     """
 
     name = team_name.strip().lower()
-    if name in {"it", "it team"}:
-        return "Budget: 10000 USD remaining."
-    if name in {"marketing", "marketing team"}:
-        return "Budget: 100 USD remaining."
-    if name in {"finance", "finance team"}:
-        return "Budget: 5000 USD remaining."
+    # Normalise names like "it team" -> "it"
+    key = name.replace(" team", "").strip()
+
+    # If we have a tracked budget, return the current value
+    current = TEAM_BUDGETS.get(key) if 'TEAM_BUDGETS' in globals() else None
+    if current is not None:
+        return f"Budget: {current:.0f} USD remaining."
+
     return f"Budget for team '{team_name}' is unknown. Treat as very low."
 
 
-tools = [check_software_license, check_team_budget]
+# Simple in-memory budget store for the demo.
+# In a real system this would live in a database / ERP system.
+TEAM_BUDGETS: dict[str, float] = {
+    "it": 10000.0,
+    "marketing": 100.0,
+    "finance": 5000.0,
+}
+
+
+@tool
+def deduct_budget(team_name: str, amount_usd: float) -> str:
+    """Deduct an amount from the team's budget (demo only).
+
+    This simulates a purchase being booked against a team's budget.
+    """
+
+    key = team_name.strip().lower()
+    current = TEAM_BUDGETS.get(key)
+    if current is None:
+        return f"Cannot deduct from unknown team '{team_name}'."
+
+    new_value = max(0.0, current - amount_usd)
+    TEAM_BUDGETS[key] = new_value
+    return f"Deducted {amount_usd:.2f} USD from {team_name}. New budget: {new_value:.2f} USD."
+
+
+tools = [check_software_license, check_team_budget, deduct_budget]
 tools_by_name = {t.name: t for t in tools}
 model_with_tools = model.bind_tools(tools)
 
@@ -116,8 +144,10 @@ def llm_call(state: MessagesState) -> MessagesState:
             "For each request, you must:\n"
             "1) Check if the requested SOFTWARE has licenses available using tools.\n"
             "2) Check the TEAM budget using tools.\n"
+            "3) If you approve a request, you MUST call the 'deduct_budget' tool with a reasonable cost estimate\n"
+            "   (for example: ~3000 USD for an SAP license, ~600 USD for an Adobe license).\n"
             "Only approve the request if there is a license available AND the team has reasonable budget.\n"
-            "Explain clearly why you approve or reject a request using the tool results."
+            "Explain clearly why you approve or reject a request using the tool results, and mention any budget deduction."
         )
     )
 
