@@ -1,0 +1,13 @@
+[project]
+name = "genai-agent-graph-exercise"
+version = "0.1.0"
+requires-python = ">=3.12"
+dependencies = [
+    "sap-ai-sdk-gen==5.8.0",
+    "python-dotenv",
+    "langgraph",
+    "langchain",
+]
+
+[tool.uv]
+# uv will use this pyproject to create an isolated environment
