@@ -77,3 +77,21 @@ You can tune retrieval and chunking via env vars (see `.env.example`):
 - `RAG_TOP_K` – number of chunks retrieved per question.
 - `RAG_CHUNK_SIZE` – splitter chunk size in characters.
 - `RAG_CHUNK_OVERLAP` – overlap between chunks in characters.
+
+---
+
+## Exercise: Knowledge Graph Alternative
+
+The vector store approach works well for similarity-based retrieval, but what if you need to answer questions that require understanding **relationships** between entities?
+
+**Challenge**: Create a knowledge graph-based solution that:
+1. Extracts entities (people, organizations, products) and their relationships from text
+2. Stores them as RDF triples in SAP HANA's Knowledge Graph Engine
+3. Answers questions using SPARQL queries instead of vector similarity
+
+**Hints**:
+- Use the LLM to analyze text and output structured entity/relationship data
+- HANA's `SPARQL_EXECUTE` stored procedure can run SPARQL queries
+- The `langchain-hana` package includes `HanaRdfGraph` and `HanaSparqlQAChain` for this purpose
+
+**Solution**: See `04-knowledge-graph/` for a complete implementation.

@@ -13,3 +13,6 @@ uv.lock
 # IDE / editor
 .vscode/
 .idea/
+
+# KG App
+old-app-example/

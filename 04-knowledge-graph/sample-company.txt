@@ -1,0 +1,16 @@
+TechVision Inc. is a software company founded in 2018 by Maria Chen and David Park. 
+The company is headquartered in San Francisco, California.
+
+Maria Chen serves as the CEO and has a background in artificial intelligence research.
+David Park is the CTO and previously worked at Google as a senior engineer.
+
+TechVision develops CloudSync, an enterprise data synchronization platform. 
+CloudSync supports real-time data replication across multiple cloud providers including AWS, Azure, and Google Cloud.
+
+The company also offers DataGuard, a security product for data encryption and access control.
+DataGuard was launched in 2021 and has been adopted by over 500 enterprise customers.
+
+TechVision has partnerships with major cloud providers. 
+In 2022, they announced a strategic partnership with Microsoft to integrate CloudSync with Azure services.
+
+The company employs approximately 200 people and has offices in San Francisco, New York, and London.

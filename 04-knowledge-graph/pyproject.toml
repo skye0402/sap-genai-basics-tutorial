@@ -1,0 +1,13 @@
+[project]
+name = "genai-knowledge-graph"
+version = "0.1.0"
+requires-python = ">=3.12"
+dependencies = [
+    "sap-ai-sdk-gen==5.8.0",
+    "python-dotenv",
+    "langchain-hana",
+    "hdbcli",
+]
+
+[tool.uv]
+# uv will use this pyproject to create an isolated environment
