@@ -12,6 +12,7 @@ uv.lock
 
 # IDE / editor
 .vscode/
+!.vscode/launch.json
 .idea/
 
 # KG App
