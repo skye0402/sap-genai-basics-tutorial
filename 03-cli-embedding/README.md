@@ -38,6 +38,28 @@ What it does:
 - Splits the text into chunks and stores them in the table `HANA_TABLE_NAME` (default: `WORKSHOP_DOCS`).
 - If you ingest the **same file path** again, existing chunks for that file (metadata `source`) are deleted first to avoid duplicates.
 
+### Inspect your table in HANA (optional)
+
+To see what was written to HANA and try SQL yourself, open the HANA tooling UI
+in your browser:
+
+- https://apjdl-aicorelp.hana-tooling.ingress.orchestration.prod-jp10.hanacloud.ondemand.com/hcs/sap/hana/cloud/index.html?#
+
+Log in with your assigned workshop HANA user (e.g. `WORKSHOP01` … `WORKSHOP20`), then:
+
+- Navigate to the **SQL Console**.
+- Locate the schema where your workshop user can create tables.
+- Run a simple query to inspect the vector store table, for example:
+
+  ```sql
+  SELECT *
+  FROM WORKSHOP_DOCS
+  LIMIT 10;
+  ```
+
+This is a good way to verify that ingestion worked and to understand what data
+is available to the RAG pipeline.
+
 ## 2. Chat with RAG over HANA (`chat_rag.py`)
 
 After ingestion, start the RAG chat:

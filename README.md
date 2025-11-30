@@ -91,6 +91,10 @@ Notes:
 - `hdbcli` implements the Python DB API (PEP 249).
 - Autocommit is **on by default** in the SAP HANA Python driver.
 
+In the workshop, HANA users are provided as `WORKSHOP01` … `WORKSHOP20`. During
+the session you’ll be told which user (and password) to use; some teams may
+share a user.
+
 ### 0.5 Configuration via `.env`
 
 At the **repo root**, copy the example environment file once:
@@ -162,6 +166,8 @@ Tools:
 
 - `ingest.py` – load a text file, create embeddings, store in HANA
 - `chat_rag.py` – ask questions over ingested content via retrieval + LLM
+- **HANA tooling UI (SQL Console)** – inspect created tables and run SQL:  
+  https://apjdl-aicorelp.hana-tooling.ingress.orchestration.prod-jp10.hanacloud.ondemand.com/hcs/sap/hana/cloud/index.html?#
 
 Key points:
 
