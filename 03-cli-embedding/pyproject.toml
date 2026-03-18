@@ -3,7 +3,7 @@ name = "genai-cli-chat"
 version = "0.1.0"
 requires-python = ">=3.12"
 dependencies = [
-    "sap-ai-sdk-gen==5.8.0",
+    "sap-ai-sdk-gen==6.6.0",
     "python-dotenv",
     "langchain-hana",
     "hdbcli",
