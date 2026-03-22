@@ -161,6 +161,24 @@ rejected due to budget).
 
 ---
 
+## Visualizing the Agent Graph
+
+You can generate a visual diagram of your agent graph at any time:
+
+```bash
+uv run license_agent_exercise.py --diagram
+```
+
+This will:
+- Print the **Mermaid diagram source** to the console (paste it into [mermaid.live](https://mermaid.live) to view)
+- Save a **PNG image** as `agent_graph.png` (uses the free mermaid.ink API — no extra installs needed)
+- Save the **Mermaid source** as `agent_graph.mmd`
+
+Try running it before and after completing the exercises to see the same graph
+structure — the difference is in the *behavior* (routing logic), not the shape.
+
+---
+
 ## Need help?
 
 If you get stuck, you can:

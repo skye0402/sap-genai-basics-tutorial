@@ -130,7 +130,7 @@ Minimal "Hello LLM" example using `sap-ai-sdk-gen` and `uv`:
 - Reads a single prompt from the terminal
 - Sends it to a model deployed in SAP Generative AI Hub
 - Prints the reply; no chat history
-- Shows how to configure the model via env var (`GENAI_MODEL`)
+- Shows how to configure the model via env var (`LLM_MODEL`)
 
 The README also contains an **exercise** (`01a-cli-chat`) where participants
 create a simple multi-turn CLI chat by copying this project.

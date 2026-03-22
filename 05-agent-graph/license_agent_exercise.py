@@ -9,6 +9,7 @@ This file is intentionally incomplete. Look for TODO comments.
 """
 
 import os
+import sys
 import operator
 from pathlib import Path
 from typing import Literal
@@ -215,11 +216,62 @@ def print_agent_thought_process(messages: list[AnyMessage]) -> None:
 
 
 # ---------------------------------------------------------------------------
+# Diagram generation (--diagram flag)
+# ---------------------------------------------------------------------------
+
+
+def generate_diagram() -> None:
+    """Generate visual representations of the agent graph and exit.
+
+    Produces:
+    - Mermaid source text (printed to console)
+    - ASCII art (printed to console)
+    - PNG file saved next to this script (uses mermaid.ink API – no local deps)
+    """
+
+    graph_drawable = agent.get_graph()
+
+    # 1. Raw Mermaid code (can be pasted into mermaid.live or embedded in Markdown)
+    mermaid_src = graph_drawable.draw_mermaid()
+    print("=== Mermaid Diagram Source ===")
+    print(mermaid_src)
+    print()
+
+    # 2. ASCII art (console-friendly, needs `pip install grandalf`)
+    try:
+        ascii_art = graph_drawable.draw_ascii()
+        print("=== ASCII Diagram ===")
+        print(ascii_art)
+        print()
+    except ImportError:
+        print("(Skipping ASCII diagram – install 'grandalf' for ASCII output)\n")
+
+    # 3. Save PNG image via the free mermaid.ink API (no extra deps)
+    out_path = Path(__file__).with_name("agent_graph.png")
+    try:
+        png_bytes = graph_drawable.draw_mermaid_png()
+        out_path.write_bytes(png_bytes)
+        print(f"=== PNG Diagram saved to: {out_path} ===")
+    except Exception as exc:
+        print(f"(Could not generate PNG – {exc})")
+
+    # 4. Save Mermaid source to .md file for GitHub rendering
+    md_path = Path(__file__).with_name("agent_graph.mmd")
+    md_path.write_text(mermaid_src, encoding="utf-8")
+    print(f"=== Mermaid source saved to: {md_path} ===")
+
+
+# ---------------------------------------------------------------------------
 # Simple CLI entry point (given)
 # ---------------------------------------------------------------------------
 
 
 def main() -> None:
+    # Handle --diagram flag before starting the interactive CLI
+    if "--diagram" in sys.argv:
+        generate_diagram()
+        return
+
     print("Software License Procurement Agent (exercise skeleton)")
     print("Type an empty line or Ctrl+C to exit.\n")
 

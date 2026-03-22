@@ -15,7 +15,7 @@ No chat memory, no history – just prompt → reply → prompt → reply.
 
 ## Prerequisites
 
-1. **Python 3.10+** installed.
+1. **Python 3.12+** installed.
 2. **`uv`** installed.
 3. SAP AI Core / Generative AI Hub credentials configured, **as in the docs in** `documentation/sap-gen-ai-hub-sdk/introduction.md`:
    - Either environment variables like `AICORE_CLIENT_ID`, `AICORE_CLIENT_SECRET`, `AICORE_AUTH_URL`, `AICORE_BASE_URL`, `AICORE_RESOURCE_GROUP`, ...
@@ -23,15 +23,15 @@ No chat memory, no history – just prompt → reply → prompt → reply.
 
 ## Configure the model
 
-The model id is taken from the environment variable `GENAI_MODEL`.
+The model id is taken from the environment variable `LLM_MODEL`.
 
-- Default (if `GENAI_MODEL` is not set): `gpt-4o-mini`.
+- Default (if `LLM_MODEL` is not set): `gpt-4.1`.
 - To explicitly choose a model, for example Anthropic Claude or Gemini, set:
 
 ```bash
-export GENAI_MODEL="anthropic--claude-3.5-sonnet"
+export LLM_MODEL="anthropic--claude-3.5-sonnet"
 # or
-export GENAI_MODEL="gemini-2.0-flash"
+export LLM_MODEL="gemini-2.0-flash"
 ```
 
 The list of supported models is also in `documentation/sap-gen-ai-hub-sdk/introduction.md`.
@@ -78,7 +78,7 @@ You can use the following flow when you work with this example:
 - **Step 2**: In `01-hello-world`, run `uv sync` and `uv run main.py` to confirm everything works.
 - **Step 3**: Experiment a bit:
   - Change the **system prompt** in code.
-  - Change `GENAI_MODEL` to try different models.
+  - Change `LLM_MODEL` to try different models.
 - **Step 4**: Reflect on prompts, roles (system vs user), and model choice.
 
 ## Exercise: Build your own CLI chat (`01a-cli-chat`)

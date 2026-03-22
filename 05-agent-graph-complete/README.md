@@ -48,6 +48,19 @@ Watch the **AGENT AUDIT LOG** in the console to see:
 - How the agent explains its final decision
 - How the Finance / IT / Marketing team budgets change over time after approvals
 
+## Visualizing the Agent Graph
+
+Generate a visual diagram of the agent graph:
+
+```bash
+uv run license_agent_complete.py --diagram
+```
+
+This will:
+- Print the **Mermaid diagram source** to the console (paste it into [mermaid.live](https://mermaid.live) to view)
+- Save a **PNG image** as `agent_graph.png` (uses the free mermaid.ink API — no extra installs needed)
+- Save the **Mermaid source** as `agent_graph.mmd`
+
 This example will later be mirrored by a skeleton version in `05-agent-graph/`,
 where participants will:
 
