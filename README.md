@@ -3,6 +3,7 @@
 > ## Day 1 – Quick start
 > - **Morning (foundations)**: 01 – Hello World, 02 – Streaming Chat CLI, 03 – HANA Vector Store + RAG
 > - **Afternoon (knowledge graph & agents)**: 04 – HANA Knowledge Graph, 05 – Agent Graph
+> - **Bonus / voice demo**: 06 – Speech Assistant (multilingual, talk-to-the-AI CLI)
 > - **If you only run one thing**: skim 01–03, then run `05-agent-graph-complete`.
 >
 > **Typical flow**
@@ -11,6 +12,7 @@
 > 3. Move to `02-cli-chat` for stateful, streaming chat.
 > 4. Use `03-cli-embedding` to ingest a document and try RAG chat.
 > 5. In the afternoon, explore `04-knowledge-graph` and then the agent in `05-agent-graph` / `05-agent-graph-complete`.
+> 6. As a bonus, try `06-speech-assistant` to talk to `gpt-realtime` from the terminal in any language.
 
 This repository contains a set of **incremental exercises** that teach how to
 combine the **SAP Cloud SDK for AI (Python) – generative**, **SAP HANA Cloud**,
@@ -114,6 +116,10 @@ Each step reads from this shared `.env` file. Typical variables include:
   - `LLM_MAX_TOKENS`, `LLM_TEMPERATURE`
 - HANA:
   - `HANA_DB_ADDRESS`, `HANA_DB_PORT`, `HANA_DB_USER`, `HANA_DB_PASSWORD`
+- Realtime voice (06-speech-assistant only, both optional):
+  - `AICORE_REALTIME_DEPLOYMENT_URL` – defaults to a public SAP-hosted
+    `gpt-realtime` deployment if unset
+  - `AICORE_REALTIME_MODEL` – defaults to `gpt-realtime`
 
 For details, see the docs under `documentation/sap-gen-ai-hub-sdk/` and the
 per-exercise `.env` sections.
@@ -269,6 +275,56 @@ They implement the key parts themselves:
    - Implement a new `deduct_budget` tool
    - Update the system prompt to call `deduct_budget` when a license is
      approved, so budgets decrease over time
+
+---
+
+## 6. 06 – Speech Assistant (Realtime Voice CLI, Multilingual)
+
+**Folder:** [`06-speech-assistant/`](06-speech-assistant/)
+**Docs:** [`06-speech-assistant/README.md`](06-speech-assistant/README.md)
+
+A **bonus / voice demo** that's intentionally simple: open a terminal,
+start the script, and just **talk to the AI**. The assistant replies in
+whatever language you spoke — English, Japanese, German, French, etc.
+
+What it shows that 01–05 don't:
+
+- Uses the **Realtime API** (`gpt-realtime`) on SAP Generative AI Hub
+  instead of a chat-completion model.
+- Holds a **long-lived WebSocket** to the deployment instead of one-shot
+  REST calls. Authenticates by hand with OAuth client_credentials so you
+  can see the auth flow explicitly.
+- Captures the **microphone** with `sounddevice` (PortAudio) and plays
+  the model's voice straight back through the speakers.
+- Uses **server-side voice-activity detection** so there's no
+  push-to-talk — just talk.
+- Demonstrates a **function-call tool** over the Realtime API: an
+  `exit_app` tool the model invokes when the user says "I'm done" /
+  "goodbye" / "終わり" / "Auf Wiedersehen". The script shuts down
+  cleanly after the farewell finishes playing.
+- **Injects local date/time/time zone** into the system prompt
+  (`tzlocal` for Windows-IANA mapping) so the model can answer time
+  questions accurately and greet you with the right time-of-day phrase
+  in the user's language ("good morning" / "おはようございます" /
+  "Guten Abend").
+
+Run it:
+
+```bash
+cd 06-speech-assistant
+uv sync
+uv run main.py
+```
+
+Headphones strongly recommended — without them the mic picks up the
+assistant's own voice. The script also has a built-in half-duplex gate
+that mutes the mic while the assistant speaks, which usually keeps
+laptop-speaker setups working too.
+
+Reuses the same shared `.env` as the other exercises. Needs only:
+`AICORE_AUTH_URL`, `AICORE_CLIENT_ID`, `AICORE_CLIENT_SECRET`,
+`AICORE_RESOURCE_GROUP`. The realtime deployment URL has a sensible
+default, with `AICORE_REALTIME_DEPLOYMENT_URL` as an opt-in override.
 
 ---
 
