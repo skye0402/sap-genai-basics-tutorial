@@ -70,6 +70,27 @@ Prompt (empty to exit):
 - **Type a question**, press Enter → the model reply is printed.
 - **Press Enter on an empty line** to exit.
 
+## Run it with a browser UI (optional)
+
+If you want a nicer demo experience — proper Unicode rendering (Japanese, Chinese, etc.), an editable system prompt, a temperature slider, and the **full structured LLM response** visible side-by-side with the reply text — there's a Gradio wrapper in `app.py`:
+
+```bash
+uv sync          # if you haven't already (Gradio is in pyproject.toml)
+uv run python app.py
+```
+
+A browser tab opens at `http://127.0.0.1:7860`. Press `Ctrl+C` in the terminal to stop the server.
+
+### Files
+
+- **`main.py`** — the simplest possible call: read prompt, `llm.invoke(...)`, print. Read this first.
+- **`app.py`** — the same call wrapped in a Gradio Blocks UI. Pure focus on the SDK call: build messages → `llm.invoke(...)` → unpack the response. No theming code.
+- **`sap_ui.py`** — visual styling only: SAP Joule colors, the gradient header, the Gradio theme, and a few CSS overrides. This module is self-contained and is reused by later exercises' Gradio wrappers.
+
+### What the UI shows (besides the reply text)
+
+The "**Raw response from the LLM**" accordion below the streamed reply shows the full `AIMessage` payload as JSON: `content`, `id`, `response_metadata` (model id, finish reason, system fingerprint, …), and `usage_metadata` (input / output / total token counts). It's there to make the teaching point that **an LLM call returns more than just text**: it returns a structured response with metadata you can use for billing, debugging, or routing decisions. Open it during the demo and walk through the fields.
+
 ## Suggested way to work through this step
 
 You can use the following flow when you work with this example:

@@ -5,6 +5,9 @@ requires-python = ">=3.12"
 dependencies = [
     "sap-ai-sdk-gen==6.6.0",
     "python-dotenv",
+    # Optional: only needed if you also want to launch the Gradio UI (app.py).
+    # The CLI (main.py) does not use it.
+    "gradio>=6.19",
 ]
 
 [tool.uv]
